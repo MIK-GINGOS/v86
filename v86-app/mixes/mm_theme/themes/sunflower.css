@@ -1,0 +1,45 @@
+/* Sunflower: yellow, 3D (gradient page, soft shadows). Also used as the light theme. */
+@layer theme {
+  :root {
+    @variant sunflower {
+      --color-surface: #ffd23f;
+      --color-surface-top: #ffe680;
+      --color-surface-bottom: #f0b400;
+      --color-card: #ffffff;
+      --color-text: #141414;
+      --color-text-muted: #6b6f78;
+      --color-accent: #141414;
+      --color-on-accent: #ffffff;
+      --color-line: #e6e7ea;
+      --color-glass: #ffffff2e;
+      --color-success: #119a5b;
+      --color-warning: #b97f00;
+      --color-danger: #d23b3b;
+      --color-protected-surface: #ffffff;
+      --color-protected-text: #141414;
+      --color-protected-accent: #ffd23f;
+      --radius-card: 20px;
+      --shadow-card: 0 6px 16px rgb(0 0 0 / 0.16);
+    }
+    @variant light {
+      --color-surface: #ffd23f;
+      --color-surface-top: #ffe680;
+      --color-surface-bottom: #f0b400;
+      --color-card: #ffffff;
+      --color-text: #141414;
+      --color-text-muted: #6b6f78;
+      --color-accent: #141414;
+      --color-on-accent: #ffffff;
+      --color-line: #e6e7ea;
+      --color-glass: #ffffff2e;
+      --color-success: #119a5b;
+      --color-warning: #b97f00;
+      --color-danger: #d23b3b;
+      --color-protected-surface: #ffffff;
+      --color-protected-text: #141414;
+      --color-protected-accent: #ffd23f;
+      --radius-card: 20px;
+      --shadow-card: 0 6px 16px rgb(0 0 0 / 0.16);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "roles": [
+    "color-surface", "color-surface-top", "color-surface-bottom",
+    "color-card", "color-text", "color-text-muted",
+    "color-accent", "color-on-accent", "color-line", "color-glass",
+    "color-success", "color-warning", "color-danger",
+    "color-protected-surface", "color-protected-text", "color-protected-accent",
+    "radius-card", "shadow-card"
+  ],
+  "protected": ["color-protected-surface", "color-protected-text", "color-protected-accent"]
+}

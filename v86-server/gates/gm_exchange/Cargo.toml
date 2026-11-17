@@ -1,0 +1,27 @@
+# gm_exchange: places orders on the Binance TESTNET. Plain Rust, whole-number money.
+#   lib   builds and signs an order (no network): fully testable offline.
+#   send  (feature, off by default) posts it with ureq. Off by default because it
+#         needs a TLS library, and the Windows GNU toolchain here has no C compiler.
+[package]
+name = "gm_exchange"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ed25519-dalek = { version = "2", features = ["pkcs8", "pem"] }
+base64 = "0.22"
+ureq = { version = "2", default-features = false, features = ["native-tls"], optional = true }
+native-tls = { version = "0.2", optional = true }
+
+[features]
+send = ["dep:ureq", "dep:native-tls"]
+
+[[bin]]
+name = "place_order"
+path = "src/main.rs"
+required-features = ["send"]
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+panic = "abort"

@@ -18,7 +18,7 @@ mod session;
 use std::io::Write;
 use std::net::{SocketAddr, TcpListener};
 
-use v86_core::Pings;
+use v86_core::{DemoOrders, Pings};
 use socket2::{Domain, Protocol, Socket, Type};
 
 use crate::http::{Kind, Status};
@@ -45,6 +45,7 @@ fn slow_ms(query: Option<&str>) -> u64 {
 // One counter for the whole program. A `static` needs no shared pointer, so
 // requests on different cores don't fight over a reference count.
 static PINGS: Pings = Pings::new();
+static DEMO_ORDERS: DemoOrders = DemoOrders::new();
 
 // Every route. `body` arrives empty: write the reply into it, then say how to send it.
 // Paths are bytes exactly as the client sent them, hence the b"...".
@@ -53,6 +54,11 @@ fn handle(req: &Request, body: &mut Vec<u8>) -> Reply {
         b"/v1/ping" => {
             // Written once, straight into the reply buffer: no String, no serializer.
             PINGS.ping_json(body);
+            Reply::Now(Status::OK, Kind::Json)
+        }
+        // Demo only: a pretend exchange reply (no API key, no network) for wiring screens.
+        b"/v1/demo/order" => {
+            DEMO_ORDERS.place_json(body);
             Reply::Now(Status::OK, Kind::Json)
         }
         b"/v1/slow" => {
@@ -168,6 +174,7 @@ mod tests {
             let reply = handle(&Request { method: b"GET", path, query: None }, &mut body);
             (matches!(reply, Reply::Now(Status::OK, Kind::Json)), String::from_utf8(body).unwrap())
         };
+        assert!(ask(b"/v1/demo/order").1.starts_with(r#"{"demo":true,"#));
         assert_eq!(ask(b"/reset"), (true, r#"{"visits":0}"#.to_string()));
         let (json, ping) = ask(b"/v1/ping");
         assert!(json && ping.starts_with(r#"{"ok":true,"count":1,"served_at":"#), "{ping}");

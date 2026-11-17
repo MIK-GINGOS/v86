@@ -1,0 +1,18 @@
+/*
+  win-wind global theme: entry point only.
+  Values live in themes/*.css (one theme per file); role names live in
+  src/contracts/theme-roles.json. Screens use role classes only
+  (bg-surface, text-text, bg-accent, rounded-card, shadow-card...).
+  To add a theme: create themes/<name>.css, import it below, and add <name>
+  to extraThemes in metro.config.js. The theme check runs when Metro starts.
+*/
+@import 'tailwindcss';
+@import 'uniwind';
+
+/* Uniwind only scans this file's folder by default; scan every screen in src/. */
+@source '../../';
+
+@import './themes/sunflower.css';
+@import './themes/ink.css';
+@import './themes/flat.css';
+@import './themes/v86.css';

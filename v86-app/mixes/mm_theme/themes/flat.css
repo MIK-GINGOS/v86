@@ -1,0 +1,25 @@
+/* Flat: yellow, 2D (solid page, ink outlines, no shadows). */
+@layer theme {
+  :root {
+    @variant flat {
+      --color-surface: #ffd23f;
+      --color-surface-top: #ffd23f;
+      --color-surface-bottom: #ffd23f;
+      --color-card: #ffffff;
+      --color-text: #141414;
+      --color-text-muted: #4f535c;
+      --color-accent: #141414;
+      --color-on-accent: #ffffff;
+      --color-line: #141414;
+      --color-glass: #ffffff;
+      --color-success: #0e7f4b;
+      --color-warning: #8a5f00;
+      --color-danger: #b42626;
+      --color-protected-surface: #ffffff;
+      --color-protected-text: #141414;
+      --color-protected-accent: #ffd23f;
+      --radius-card: 12px;
+      --shadow-card: 0 0 #0000;
+    }
+  }
+}

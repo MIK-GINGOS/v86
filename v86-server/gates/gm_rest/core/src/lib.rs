@@ -36,6 +36,29 @@ impl Pings {
     }
 }
 
+/// Demo orders: a pretend exchange reply, so screens can be wired and shown with no API key.
+/// Same shape as Binance's order reply (status NEW) but marked "demo": true.
+#[derive(Debug, Default)]
+pub struct DemoOrders {
+    next: AtomicU64,
+}
+
+impl DemoOrders {
+    pub const fn new() -> Self {
+        Self { next: AtomicU64::new(0) }
+    }
+
+    pub fn place_json(&self, out: &mut Vec<u8>) {
+        let id = self.next.fetch_add(1, Ordering::Relaxed) + 1;
+        let ms = SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_millis()).unwrap_or(0);
+        write!(
+            out,
+            r#"{{"demo":true,"symbol":"BTCUSDT","orderId":{id},"side":"SELL","type":"LIMIT","status":"NEW","price":"0.20","origQty":"1.0000000","executedQty":"0.00000000","transactTime":{ms}}}"#
+        )
+        .expect("writing to a Vec cannot fail");
+    }
+}
+
 pub fn now_secs() -> u64 {
     SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_secs()).unwrap_or(0)
 }
@@ -43,6 +66,16 @@ pub fn now_secs() -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn demo_orders_count_up_and_are_marked_demo() {
+        let d = DemoOrders::new();
+        let (mut a, mut b) = (Vec::new(), Vec::new());
+        d.place_json(&mut a);
+        d.place_json(&mut b);
+        assert!(String::from_utf8(a).unwrap().starts_with(r#"{"demo":true,"symbol":"BTCUSDT","orderId":1,"#));
+        assert!(String::from_utf8(b).unwrap().contains(r#""orderId":2,"#));
+    }
 
     #[test]
     fn counts_each_ping() {

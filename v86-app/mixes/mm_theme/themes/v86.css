@@ -1,0 +1,25 @@
+/* V86 brand: zinc greys, black text, teal accent (brand guidelines, light edition). */
+@layer theme {
+  :root {
+    @variant v86 {
+      --color-surface: #f4f4f5;
+      --color-surface-top: #ffffff;
+      --color-surface-bottom: #f4f4f5;
+      --color-card: #ffffff;
+      --color-text: #18181b;
+      --color-text-muted: #71717a;
+      --color-accent: #2f8585;
+      --color-on-accent: #ffffff;
+      --color-line: #e4e4e7;
+      --color-glass: #ffffff;
+      --color-success: #119a5b;
+      --color-warning: #b97f00;
+      --color-danger: #d23b3b;
+      --color-protected-surface: #ffffff;
+      --color-protected-text: #141414;
+      --color-protected-accent: #ffd23f;
+      --radius-card: 22px;
+      --shadow-card: 0 4px 12px rgb(0 0 0 / 0.08);
+    }
+  }
+}
