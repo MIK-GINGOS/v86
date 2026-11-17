@@ -1,0 +1,20 @@
+[package]
+name = "v86_rest"
+version.workspace = true
+edition.workspace = true
+description = "v86-server's REST gate: own HTTP engine plus routes."
+
+[[bin]]
+name = "v86_server"
+path = "src/main.rs"
+
+[dependencies]
+v86_core.workspace = true
+# The server is its own HTTP engine (see src/), so all it needs from outside is the
+# operating system's "which sockets are ready" call (mio), socket options (socket2)
+# and Ctrl+C (ctrlc). No C compiler is needed to build it. All three are held at the
+# newest versions that compile with a plain rustup windows-gnu toolchain: later ones
+# pull in windows-sys 0.60+, which needs binutils' dlltool on PATH.
+mio = { version = ">=1.0.4, <1.1.0", features = ["os-poll", "net"] }
+socket2 = ">=0.5.10, <0.6.1"
+ctrlc = { version = ">=3.4.0, <3.5.0", features = ["termination"] }

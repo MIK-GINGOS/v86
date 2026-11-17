@@ -1,0 +1,5 @@
+[package]
+name = "v86_core"
+version.workspace = true
+edition.workspace = true
+description = "v86-server logic with no networking. Grow the server by adding modules here."

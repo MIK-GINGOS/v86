@@ -1,0 +1,13 @@
+# flood: a native load tester for v86-server's speed tests. Plain Rust threads and
+# sockets, nothing to download. Run it with compare\speedtest-native.cmd.
+[package]
+name = "v86_flood"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "flood"
+path = "src/main.rs"
+
+# Its own workspace, so the main one (and `cargo run` there) is not affected.
+[workspace]

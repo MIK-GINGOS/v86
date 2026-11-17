@@ -1,0 +1,21 @@
+# gates/gm_rest: the REST gate and the fast HTTP engine under all of v86-server.
+#   core/    plain Rust logic. No networking: it can be tested and reused anywhere.
+#   server/  the HTTP engine (own reactor, no framework) plus the routes.
+#   flood/   load tester (its own workspace, see flood/Cargo.toml).
+[workspace]
+resolver = "3"
+members = ["core", "server"]
+exclude = ["flood"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+# Build for speed: whole-program optimisation, no unwinding machinery.
+[profile.release]
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+
+[workspace.dependencies]
+v86_core = { path = "core" }
